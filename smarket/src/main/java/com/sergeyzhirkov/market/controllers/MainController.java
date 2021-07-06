@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -18,6 +19,11 @@ public class MainController {
     @Autowired
     public MainController(ProductService productService) {
         this.productService = productService;
+    }
+
+    @GetMapping("/nav")
+    public String showNavigation() {
+        return "nav";
     }
 
     @GetMapping("/all")
@@ -36,5 +42,11 @@ public class MainController {
     public String createNewProduct(@RequestParam Integer id, @RequestParam String name, @RequestParam Integer price) {
         productService.addProduct(new Product(id, name, price));
         return "redirect:/all";
+    }
+
+    @GetMapping("/product/{id}")
+    public String productInfo(Model model, @PathVariable int id) {
+        model.addAttribute("product", productService.getProductById(id));
+        return "product_info";
     }
 }

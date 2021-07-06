@@ -25,9 +25,13 @@
             <td th:text="${product.id}"></td>
             <td th:text="${product.name}"></td>
             <td th:text="${product.price}"></td>
+            <td>
+                <a class="btn btn-primary" th:href="@{'/product/' + ${product.id}}">Details</a>
+            </td>
         </tr>
         </tbody>
     </table>
+    <a class="btn btn-primary" th:href="@{/nav}">To Navigation Page</a>
 </div>
 </body>
 </html>

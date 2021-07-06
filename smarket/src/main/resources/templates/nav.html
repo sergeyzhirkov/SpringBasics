@@ -11,13 +11,10 @@
 
 <body>
 <div class="container">
-    <form method="post" th:action="@{/create_new_product}">
-        <input type="number" name="id">
-        <input type="text" name="name">
-        <input type="number" name="price">
-        <button class="btn btn-primary" type="submit">ADD PRODUCT !</button>
-    </form>
-    <a class="btn btn-primary" th:href="@{/nav}">To Navigation Page</a>
+    <h1>Navigation</h1>
+    <a class="btn btn-primary" th:href="@{/all}">To Products Page</a>
+    <p></p>
+    <a class="btn btn-primary" th:href="@{/create_product_form}">To Add New Product Page</a>
 </div>
 </body>
 </html>

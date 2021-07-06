@@ -24,4 +24,8 @@ public class ProductService {
     public void addProduct(Product product) {
         productRepository.addProduct(product);
     }
+
+    public Product getProductById(int id) {
+        return productRepository.getProductById(id).orElseThrow();
+    }
 }
