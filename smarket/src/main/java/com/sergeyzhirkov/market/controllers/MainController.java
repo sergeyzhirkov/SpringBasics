@@ -37,12 +37,12 @@ public class MainController {
     public String showCreateProductForm() {
         return "add_form";
     }
-
-    @PostMapping("/create_new_product")
-    public String createNewProduct(@RequestParam Integer id, @RequestParam String name, @RequestParam Integer price) {
-        productService.addProduct(new Product(id, name, price));
-        return "redirect:/all";
-    }
+//
+//    @PostMapping("/create_new_product")
+//    public String createNewProduct(@RequestParam Integer id, @RequestParam String name, @RequestParam Integer price) {
+//        productService.addProduct(new Product(id, name, price));
+//        return "redirect:/all";
+//    }
 
     @GetMapping("/product/{id}")
     public String productInfo(Model model, @PathVariable int id) {

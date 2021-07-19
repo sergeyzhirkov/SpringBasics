@@ -1,34 +1,24 @@
 package com.sergeyzhirkov.market.model;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "products")
+@Data
+@NoArgsConstructor
 public class Product {
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "price")
     private int price;
 
-    public Product(int id, String name, int price) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", price=" + price +
-                '}';
-    }
 }

@@ -1,39 +1,18 @@
 package com.sergeyzhirkov.market.repositories;
 
 import com.sergeyzhirkov.market.model.Product;
-import org.springframework.stereotype.Component;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.stereotype.Repository;
 
-import javax.annotation.PostConstruct;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-@Component
-public class ProductRepository {
-    private List<Product> assortiment;
-
-    public List<Product> getAssortiment() {
-        return Collections.unmodifiableList(assortiment);
-    }
-
-    public Optional<Product> getProductById(int id) {
-        return assortiment.stream()
-                .filter(x -> x.getId() == id)
-                .findAny();
-    }
-
-    public void addProduct(Product product) {
-        assortiment.add(product);
-    }
-
-    @PostConstruct
-    public void init() {
-        assortiment = new ArrayList<Product>();
-        assortiment.add(new Product(1, "milk", 100));
-        assortiment.add(new Product(2, "water", 20));
-        assortiment.add(new Product(3, "juice", 50));
-        assortiment.add(new Product(4, "bread", 40));
-        assortiment.add(new Product(5, "pasta", 80));
-    }
+@Repository
+public interface ProductRepository extends JpaRepository<Product, Long> {
+    List<Product> findAllByPriceGreaterThanEqual(int minPrice);
+    List<Product> findAllByIdLessThanEqual(Long maxId);
+    List<Product> findAllByIdBetweenAndPriceGreaterThan(Long minId, Long maxId, int minPrice);
 }
