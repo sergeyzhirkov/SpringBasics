@@ -21,32 +21,32 @@ public class MainController {
         this.productService = productService;
     }
 
-    @GetMapping("/nav")
-    public String showNavigation() {
-        return "nav";
-    }
-
-    @GetMapping("/all")
-    public String showAllProducts(Model model) {
-        List<Product> products = productService.findAll();
-        model.addAttribute("products", products);
-        return "all_products";
-    }
-
-    @GetMapping("/create_product_form")
-    public String showCreateProductForm() {
-        return "add_form";
-    }
-//
-//    @PostMapping("/create_new_product")
-//    public String createNewProduct(@RequestParam Integer id, @RequestParam String name, @RequestParam Integer price) {
-//        productService.addProduct(new Product(id, name, price));
-//        return "redirect:/all";
+//    @GetMapping("/nav")
+//    public String showNavigation() {
+//        return "nav";
 //    }
-
-    @GetMapping("/product/{id}")
-    public String productInfo(Model model, @PathVariable int id) {
-        model.addAttribute("product", productService.getProductById(id));
-        return "product_info";
-    }
+//
+//    @GetMapping("/all")
+//    public String showAllProducts(Model model) {
+//        List<Product> products = productService.findAll();
+//        model.addAttribute("products", products);
+//        return "all_products";
+//    }
+//
+//    @GetMapping("/create_product_form")
+//    public String showCreateProductForm() {
+//        return "add_form";
+//    }
+////
+////    @PostMapping("/create_new_product")
+////    public String createNewProduct(@RequestParam Integer id, @RequestParam String name, @RequestParam Integer price) {
+////        productService.addProduct(new Product(id, name, price));
+////        return "redirect:/all";
+////    }
+//
+//    @GetMapping("/product/{id}")
+//    public String productInfo(Model model, @PathVariable int id) {
+//        model.addAttribute("product", productService.getProductById(id));
+//        return "product_info";
+//    }
 }

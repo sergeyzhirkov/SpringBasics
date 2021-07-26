@@ -1,5 +1,6 @@
 package com.sergeyzhirkov.market.repositories;
 
+import com.sergeyzhirkov.market.dto.ProductDto;
 import com.sergeyzhirkov.market.model.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -12,7 +13,7 @@ import java.util.Optional;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
-    List<Product> findAllByPriceGreaterThanEqual(int minPrice);
-    List<Product> findAllByIdLessThanEqual(Long maxId);
-    List<Product> findAllByIdBetweenAndPriceGreaterThan(Long minId, Long maxId, int minPrice);
+//    List<Product> findAllByPriceGreaterThanEqual(int minPrice);
+//    List<Product> findAllByIdLessThanEqual(Long maxId);
+//    List<Product> findAllByIdBetweenAndPriceGreaterThan(Long minId, Long maxId, int minPrice);
 }

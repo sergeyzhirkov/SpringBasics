@@ -1,39 +1,42 @@
 package com.sergeyzhirkov.market.controllers;
 
+import com.sergeyzhirkov.market.dto.ProductDto;
 import com.sergeyzhirkov.market.model.Product;
 import com.sergeyzhirkov.market.services.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+
+@RestController
 @RequiredArgsConstructor
+@RequestMapping("/api/v1/products")
 public class ProductController {
     private final ProductService productService;
 
-    @GetMapping("app/products/{id}")
-    @ResponseBody
-    public Product showProductById(@PathVariable Long id) {
-        return productService.getProductById(id);
+    @GetMapping("/{id}")
+    public ProductDto findById(@PathVariable Long id) {
+        return new ProductDto(productService.findById(id));
     }
 
-    @GetMapping("app/products")
-    @ResponseBody
-    public List<Product> showAllProducts() {
-        return productService.findAll();
+    @GetMapping
+    public Page<ProductDto> findAll(@RequestParam(name = "p", defaultValue = "1") int pageIndex) {
+        return productService.findPage(pageIndex - 1, 5).map(ProductDto::new);
     }
 
-    @GetMapping("app/products/delete/{id}")
-    @ResponseBody
+    @PostMapping
+    public ProductDto createNewProduct(@RequestBody ProductDto newProductDto) {
+        Product product = new Product();
+        product.setPrice(newProductDto.getPrice());
+        product.setTitle(newProductDto.getTitle());
+        return new ProductDto(productService.save(product));
+    }
+
+    @DeleteMapping("/{id}")
     public void deleteById(@PathVariable Long id) {
         productService.deleteById(id);
-    }
-
-    @PostMapping("app/products")
-    @ResponseBody
-    public Product addNewProduct(@RequestParam String name, @RequestParam Integer price) {
-        return productService.addProduct(name, price);
     }
 }

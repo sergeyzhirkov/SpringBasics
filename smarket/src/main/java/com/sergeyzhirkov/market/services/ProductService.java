@@ -1,8 +1,11 @@
 package com.sergeyzhirkov.market.services;
 
+import com.sergeyzhirkov.market.dto.ProductDto;
 import com.sergeyzhirkov.market.model.Product;
 import com.sergeyzhirkov.market.repositories.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,21 +21,19 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public Product addProduct(String name, Integer price) {
-        Product product = new Product();
-        if (price < 0) {
-            return product;
-        }
-        product.setName(name);
-        product.setPrice(price);
-        return productRepository.save(product);
-    }
-
-    public Product getProductById(long id) {
+    public Product findById(Long id) {
         return productRepository.findById(id).get();
     }
 
-    public void deleteById(long id) {
+    public Page<Product> findPage(int pageIndex, int pageSize) {
+        return productRepository.findAll(PageRequest.of(pageIndex, pageSize));
+    }
+
+    public Product save(Product newProduct) {
+        return productRepository.save(newProduct);
+    }
+
+    public void deleteById(Long id) {
         productRepository.deleteById(id);
     }
 }
